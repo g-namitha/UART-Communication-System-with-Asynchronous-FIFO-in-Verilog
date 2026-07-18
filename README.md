@@ -23,12 +23,13 @@ The project demonstrates Clock Domain Crossing (CDC), Gray-code pointer synchron
 - Complete Testbench Verification
 
 ---
-
 ## Block Diagram
 
 <p align="center">
   <img src="images/block_diagram.png" width="900">
 </p>
+
+The overall system integrates a **UART Receiver**, **Asynchronous FIFO**, and **UART Transmitter** to achieve reliable serial communication across different clock domains. Incoming serial data is converted to parallel format, buffered safely in the FIFO, and transmitted back serially without data corruption.
 
 ---
 
@@ -38,6 +39,8 @@ The project demonstrates Clock Domain Crossing (CDC), Gray-code pointer synchron
   <img src="images/uart_rx.png" width="900">
 </p>
 
+The UART Receiver samples the incoming serial data using an oversampled baud clock. It detects the **Start bit**, shifts in the eight data bits, optionally verifies the parity bit, checks the **Stop bit**, and generates an `rx_done` pulse along with the received parallel byte. This ensures accurate data reception even without a shared clock between transmitter and receiver.
+
 ---
 
 ## Asynchronous FIFO Architecture
@@ -45,6 +48,8 @@ The project demonstrates Clock Domain Crossing (CDC), Gray-code pointer synchron
 <p align="center">
   <img src="images/fifo.png" width="900">
 </p>
+
+The Asynchronous FIFO acts as a buffer between two independent clock domains. It uses **dual-port RAM**, **Gray-code read/write pointers**, and **two-stage synchronizers** to safely transfer data while avoiding metastability. Status flags such as **Full**, **Empty**, **Almost Full**, and **Almost Empty** provide reliable flow control.
 
 ---
 
@@ -54,6 +59,8 @@ The project demonstrates Clock Domain Crossing (CDC), Gray-code pointer synchron
   <img src="images/uart_tx.png" width="900">
 </p>
 
+The UART Transmitter converts parallel data into a serial stream. A finite state machine (FSM) controls the transmission sequence by sending the **Start bit**, **8 data bits**, **parity bit**, and **Stop bit** at the configured baud rate. Transmission begins only when valid data is available from the FIFO.
+
 ---
 
 ## Complete Data Flow
@@ -61,6 +68,8 @@ The project demonstrates Clock Domain Crossing (CDC), Gray-code pointer synchron
 <p align="center">
   <img src="images/flow.png" width="900">
 </p>
+
+The complete communication flow begins when serial data is received by the UART Receiver. After successful reception, the data is written into the Asynchronous FIFO, where it is safely buffered across clock domains. Once the transmitter is ready, the FIFO provides the stored data to the UART Transmitter, which serializes and transmits it. This architecture ensures reliable communication between modules operating at different clock frequencies while preventing data loss and synchronization issues.
 
 ---
 # Simulation Results
