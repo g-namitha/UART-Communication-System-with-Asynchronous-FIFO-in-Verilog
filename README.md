@@ -26,34 +26,43 @@ The project demonstrates Clock Domain Crossing (CDC), Gray-code pointer synchron
 
 ## Block Diagram
 
-![System Block Diagram](images/block_diagram.png)
+<p align="center">
+  <img src="images/block_diagram.png" width="900">
+</p>
 
 ---
 
 ## UART Receiver Architecture
 
-![UART Receiver Architecture](images/uart_rx.png)
+<p align="center">
+  <img src="images/uart_rx.png" width="900">
+</p>
 
 ---
 
 ## Asynchronous FIFO Architecture
 
-![Asynchronous FIFO Architecture](images/fifo.png)
+<p align="center">
+  <img src="images/fifo.png" width="900">
+</p>
 
 ---
 
 ## UART Transmitter Architecture
 
-![UART Transmitter Architecture](images/uart_tx.png)
+<p align="center">
+  <img src="images/uart_tx.png" width="900">
+</p>
 
 ---
 
 ## Complete Data Flow
 
-![Complete Data Flow](images/flow.png)
+<p align="center">
+  <img src="images/flow.png" width="900">
+</p>
 
 ---
-
 # Simulation Results
 
 ## UART Receiver
