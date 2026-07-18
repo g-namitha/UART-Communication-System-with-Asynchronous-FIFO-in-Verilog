@@ -76,57 +76,69 @@ The complete communication flow begins when serial data is received by the UART 
 
 ## UART Receiver
 
-![UART RX](waveforms/UART%20RX%20Waveform1.png)
+<p align="center">
+  <img src="waveforms/UART%20RX%20Waveform1.png" width="900">
+</p>
 
-The UART Receiver correctly detects the Start bit, samples the incoming serial data, verifies parity and stop bit, and generates the received 8-bit parallel data with an `rx_done` pulse.
+The UART Receiver correctly detects the **Start bit**, samples the incoming serial data, verifies the parity and stop bits, and generates the received 8-bit parallel data along with the `rx_done` pulse.
 
 ---
 
 ## FIFO Write Operation
 
-![FIFO Write](waveforms/FIFO%20Write2.png)
+<p align="center">
+  <img src="waveforms/FIFO%20Write2.png" width="900">
+</p>
 
-When `rx_done` becomes high, the received byte is written into the FIFO. The write pointer increments, occupancy updates, and the Empty flag is cleared.
+When `rx_done` becomes high, the received byte is written into the FIFO. The write pointer increments, the FIFO occupancy updates, and the **Empty** flag is deasserted.
 
 ---
 
 ## FIFO Read Operation
 
-![FIFO Read](waveforms/fifo%20read3.png)
+<p align="center">
+  <img src="waveforms/fifo%20read3.png" width="900">
+</p>
 
-Once the transmitter is available, the FIFO read enable is asserted. The stored data is read successfully, and the read pointer advances.
+Once the transmitter is available, the FIFO read enable is asserted. The stored data is successfully read, the read pointer advances, and the FIFO occupancy decreases.
 
 ---
 
 ## UART Transmitter Start
 
-![TX Start](waveforms/uart%20tx%20start.png)
+<p align="center">
+  <img src="waveforms/uart%20tx%20start.png" width="900">
+</p>
 
-The transmitter receives the `txstart` pulse, enters the START state, and loads the parallel data into the PISO shift register.
+The transmitter receives the `txstart` pulse, enters the **START** state, and loads the parallel data into the **PISO shift register**, initiating frame transmission.
 
 ---
 
 ## UART Transmitter Data Transmission
 
-![TX Data](waveforms/uart%20tx%20data.png)
+<p align="center">
+  <img src="waveforms/uart%20tx%20data.png" width="900">
+</p>
 
-The transmitter serializes the data, appends the parity bit and stop bit, and transmits the UART frame correctly.
+The UART Transmitter serializes the parallel byte, appends the parity bit and stop bit, and transmits the complete UART frame at the configured baud rate.
 
 ---
 
 ## Complete System Waveform
 
-![Complete Waveform](waveforms/completewaveform.png)
+<p align="center">
+  <img src="waveforms/completewaveform.png" width="900">
+</p>
 
-The complete communication flow:
-- UART RX receives serial data
-- Data is stored into the Asynchronous FIFO
-- FIFO buffers the data
-- UART TX reads from FIFO
-- Serial data is transmitted successfully
+This waveform demonstrates the complete communication sequence:
+
+- UART Receiver detects and samples the incoming serial data.
+- The received byte is written into the Asynchronous FIFO.
+- The FIFO safely buffers data between independent clock domains.
+- When the transmitter becomes available, the FIFO provides the stored data.
+- The UART Transmitter serializes and transmits the data successfully.
 
 ---
-
 # Repository Structure
 
 ```
