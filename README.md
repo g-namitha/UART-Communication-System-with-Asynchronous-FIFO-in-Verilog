@@ -75,7 +75,7 @@ The UART Receiver correctly detects the Start bit, samples the incoming serial d
 
 ## FIFO Write Operation
 
-![FIFO Write](waveforms/FIFOWrite2.png)
+![FIFO Write](waveforms/FIFO%20Write2.png)
 
 When `rx_done` becomes high, the received byte is written into the FIFO. The write pointer increments, occupancy updates, and the Empty flag is cleared.
 
@@ -91,7 +91,7 @@ Once the transmitter is available, the FIFO read enable is asserted. The stored 
 
 ## UART Transmitter Start
 
-![TX Start](waveforms/uart%20tx%20Start.png)
+![TX Start](waveforms/uart%20tx%20start.png)
 
 The transmitter receives the `txstart` pulse, enters the START state, and loads the parallel data into the PISO shift register.
 
